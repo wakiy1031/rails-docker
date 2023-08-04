@@ -1,0 +1,29 @@
+version: '3'
+
+volumes:
+  db-base:
+
+services:
+  web:
+    build: .
+    environment:
+      - "DATABASE_HOST=db"
+      - "DATABASE_PORT=5432"
+      - "DATABASE_USER=postgres"
+      - 'DATABASE_PASSWORD=postgres'
+    volumes:
+      - '.:/myapp'
+    ports:
+      - '3000:3000'
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+    links:
+      - db
+
+  db:
+    image: postgres
+    environment:
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=postgres'
