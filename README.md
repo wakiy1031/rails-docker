@@ -1,24 +1,28 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 環境構築方法
+dockerとdocker-composeをインストールされていない方は事前にインストールが必要となります。
+### git-clone を行う
 
-Things you may want to cover:
+ディレクトリを作成し、当リポジトリを clone します。
+今回で言うと rails-docker とディレクトリを作成して
+`$ git clone https://github.com/wakiy1031/rails-docker.git`
 
-* Ruby version
+### docker-compose build を行う
 
-* System dependencies
+docker-compose を使っているので、`$docker-compose build`を行います。
 
-* Configuration
+### docker-compose up を行う
 
-* Database creation
+build が問題なく終了しましたら、`$docker-compose up`を行い、web と db コンテナの立ち上げをします。
 
-* Database initialization
+### Rails データベースの作成
 
-* How to run the test suite
+rails でデータベースを作成します。`$docker-compose run web rake db:create`で作成できます。
 
-* Services (job queues, cache servers, search engines, etc.)
+### migrate する
 
-* Deployment instructions
-
-* ...
+データベースを作成できたら migrate をします。
+`$docker-compose exec web bash`でターミナルを起動し、
+`$rails db:migrate`を行います。
+以上で環境構築が完了です。
